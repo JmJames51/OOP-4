@@ -3,19 +3,28 @@ require_once 'Vehicle.php';
 
 class Car extends Vehicle
 {
+    
     public const ALLOWED_ENERGIES=[
         'fuel',
         'electric',
     ];
-
+    
+    private bool $hasParkBrake= true;
     private string $energy;
     private int $energyLevel;
 
-        public function __construct(string $color ,int $nbSeats, string $energy )
-        {
+        
+    public function __construct(string $color ,int $nbSeats, string $energy )
+    {
             parent::__construct($color , $nbSeats);
             $this->energy= $energy;
-        }
+    }
+    public function start()
+    {
+            if ($this->hasParkBrake) {
+                throw new Exception("Ton frein a main est levé");
+            }
+    }
 
 
     /**
@@ -59,6 +68,17 @@ class Car extends Vehicle
         }
         return $this;
      
+    }
+
+    /**
+     * Set the value of hasParkBrake
+     *
+     * @return  self
+     */ 
+    public function setHasParkBrake(bool $hasParkBrake):void
+    {
+        $this->hasParkBrake = $hasParkBrake;
+
     }
 }
 
